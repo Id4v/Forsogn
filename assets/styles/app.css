@@ -2,7 +2,7 @@
 @source not "../../public/*";
 @plugin "daisyui";
 @plugin "daisyui/theme" {
-    name: "pastel";
+    name: "nord";
     default: true;
     prefersdark: true;
     color-scheme: "light";
