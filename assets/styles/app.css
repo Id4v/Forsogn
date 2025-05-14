@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @source not "../../public/*";
+@source not "../../.idea/*";
 @plugin "daisyui";
 @plugin "daisyui/theme" {
     name: "nord";

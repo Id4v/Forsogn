@@ -1,0 +1,6 @@
+controllers:
+  resource:
+    path: ../../src/Controller/Front
+    namespace: App\Controller\Front
+  type: attribute
+  name_prefix: "app_"
