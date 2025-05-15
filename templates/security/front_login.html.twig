@@ -2,27 +2,63 @@
 
 {% block title %}Log in!{% endblock %}
 
+{% block form %}
+    <form method="post">
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a
+                        href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <p class="text-error font-bold text-lg">{{ error }}</p>
+        {% endif %}
+
+        <h2 class="text-3xl mb-8 font-weight-normal">Please sign in</h2>
+        <label class="floating-label mb-6" for="inputEmail">
+            <input type="email"
+                   value="{{ last_username }}"
+                   name="email"
+                   placeholder="Email address"
+                   id="inputEmail"
+                   class="input input-ghost input-md placeholder-base-content bg-base-100 focus:bg-base-100"
+                   autocomplete="email" required autofocus>
+            <span>Email address</span>
+        </label>
+        {# <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required> #}
+        <input type="hidden" name="_csrf_token" data-controller="csrf-protection"
+               value="{{ csrf_token('authenticate') }}">
+
+        <button class="btn btn-lg btn-accent" type="submit">
+            Sign in
+        </button>
+    </form>
+{% endblock %}
+
+{% block success_message %}
+    <p class="text-5xl text-success">Your login link was sent to your email. Check your inbox.</p>
+{% endblock %}
+
+
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+    <body>
+    <div class="min-h-dvh w-full min-w-full not-dark:bg-gradient-to-br not-dark:from-indigo-100 not-dark:to-purple-200  flex items-center dark:bg-base-300">
+        <div class="w-full mx-auto card max-w-5xl shadow-xl glass rounded-2xl">
+            <div class="grid md:grid-cols-2 grid-cols-1">
+                <div>
+                    <img class="image-full" src="{{ asset('build/images/login-illust.jpg') }}" alt="Login Screen Illustration">
+                </div>
+                <div class="py-20 px-10 flex flex-col justify-evenly">
+                    <h1 class="text-5xl">Forsøgn</h1>
+                    {% if mailSent %}
+                        {{ block('success_message') }}
+                    {% else %}
+                        {{ block('form') }}
+                    {% endif %}
+                </div>
+            </div>
         </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    {#<label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>#}
-    <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+    </body>
 {% endblock %}

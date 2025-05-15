@@ -19,6 +19,7 @@
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.6",
     "daisyui": "^5.0.35",
+    "file-loader": "^6.0.0",
     "postcss": "^8.5.3",
     "postcss-loader": "^8.1.1",
     "tailwindcss": "^4.1.6"
